@@ -16,7 +16,8 @@ if not os.path.isfile('etc/config.ini'):
                        'mysql_password': 'None',
                        'mysql_host': 'None',
                        'libvirt_conn': 'None',
-                       'xml_setting_for_VM': 'None'}
+                       'xml_setting_for_VM': 'None',
+                       'dnsmasq_conf_path': 'None'}
     with open('etc/config.ini', 'w') as file_conf:
         config.write(file_conf)
 
