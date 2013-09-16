@@ -1,17 +1,18 @@
-from wsgiref.simple_server import make_server
 import argparse
-from webob import Request, Response
+from webob import Request
+from webob import Response
 from webob import exc
-from VM_Project import libvirt_VM
+from VM_Project import libvirt_vm
+from wsgiref.simple_server import make_server
 
 
 class ApiHandler(object):
     def __call__(self, environ, start_response):
         req = Request(environ)
         try:
-            self.myVM = libvirt_VM.VM(name=req.json['nameVM'])
+            self.myVM = libvirt_vm.VM(name=req.json['name_vm'])
         except KeyError:
-            self.myVM = libvirt_VM.VM()
+            self.myVM = libvirt_vm.VM()
         meth_name = req.path[1:].replace('/', '_')
         try:
             if hasattr(self, meth_name):
@@ -22,32 +23,32 @@ class ApiHandler(object):
             resp = e
         return resp(environ, start_response)
 
-    def show_VM(self, req):
-        return self.myVM.show_VM()
+    def show_vm(self, req):
+        return self.myVM.show_vm()
 
-    def connect_VM(self, req):
-        return self.myVM.connect_VM()
+    def connect_vm(self, req):
+        return self.myVM.connect_vm()
 
-    def shutdown_VM(self, req):
-        return self.myVM.shutdown_VM()
+    def shutdown_vm(self, req):
+        return self.myVM.shutdown_vm()
 
-    def resume_VM(self, req):
-        return self.myVM.resume_VM()
+    def resume_vm(self, req):
+        return self.myVM.resume_vm()
 
-    def suspend_VM(self, req):
-        return self.myVM.suspend_VM()
+    def suspend_vm(self, req):
+        return self.myVM.suspend_vm()
 
-    def undefine_VM(self, req):
-        return self.myVM.undefine_VM()
+    def undefine_vm(self, req):
+        return self.myVM.undefine_vm()
 
-    def start_VM(self, req):
-        return self.myVM.start_VM()
+    def start_vm(self, req):
+        return self.myVM.start_vm()
 
-    def destroy_VM(self, req):
-        return self.myVM.destroy_VM()
+    def destroy_vm(self, req):
+        return self.myVM.destroy_vm()
 
-    def create_VM(self, req):
-        return self.myVM.create_VM(req.json)
+    def create_vm(self, req):
+        return self.myVM.create_vm(req.json['name_vm'], req.json['memory_vm'], req.json['path_to_vm'])
 
 
 if __name__ == '__main__':

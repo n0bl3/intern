@@ -1,11 +1,11 @@
 import ConfigParser
 
 
-class Settings_install(dict):
+class SettingsInstall(dict):
     def __init__(self, way):
         self.config = ConfigParser.ConfigParser()
         self.config.read(way)
-        super(Settings_install, self).__init__(
+        super(SettingsInstall, self).__init__(
             {k: v for k, v in self.config.items('DEFAULT')})
 
     def __getattribute__(self, name):
