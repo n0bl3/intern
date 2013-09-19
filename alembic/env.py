@@ -2,10 +2,11 @@ from __future__ import with_statement
 from alembic import context
 from logging.config import fileConfig
 from VM_Project.settings import SettingsInstall
-from VM_Project.libvirt_vm import Base
+from VM_Project.vm_sql import Base
 from sqlalchemy import create_engine
+import os
 
-FLAGS = SettingsInstall("./etc/config.ini")
+FLAGS = SettingsInstall(os.environ['MINI_OPEN_STACK'] + '/etc/config.ini')
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config

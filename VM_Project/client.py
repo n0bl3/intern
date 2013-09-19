@@ -6,12 +6,6 @@ from VM_Project.RPC.manager import RpcClient
 
 def act_parser(data, dict_data):
     dict_data.pop('handler')
-    if data.routing_key:
-        request = RpcClient()
-        print " [x] Requesting"
-        response = request.call(dict_data)
-        print " [.] Reponce: %r" % (response,)
-        quit()
     url = 'http://{}:{}/{}'.format(data.host, data.port, data.act)
     print url
     req = urllib2.Request(url, json.dumps(dict_data))
